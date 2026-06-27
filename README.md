@@ -1,8 +1,7 @@
 UPI Offline Mesh Demo
 
-A Spring Boot project that simulates Offline UPI Payments using Mesh Networking. The project demonstrates how payment packets can travel between nearby devices without internet connectivity and get settled later when a bridge device reconnects to the banking server.
-
-⸻
+A Spring Boot backend that simulates offline UPI-style payments using mesh networking.
+The project demonstrates how payment packets can move between nearby devices without internet and later settle when a bridge device reconnects to the server.
 
 Tech Stack
 
@@ -14,59 +13,51 @@ Tech Stack
 * REST APIs
 * Postman
 
-⸻
-
 Features
 
-* Account Management
-* Direct UPI Transfer
-* Transaction History
-* Offline Payment Packet Creation
-* Mesh Gossip Protocol
-* Bridge Device Settlement
-* Duplicate Packet Protection
-* Device Online/Offline Simulation
-* Mesh Network Summary
-* Mesh Reset API
-
-⸻
+* Account balance management
+* Direct money transfer API
+* Transaction history
+* Offline payment packet creation
+* Mesh gossip protocol
+* Bridge-device settlement
+* Duplicate packet protection
+* Device online/offline simulation
+* Mesh summary API
+* Mesh reset API
 
 Project Structure
 
 src
-├── controller
-├── dto
-├── model
-├── service
-└── resources
+├── main
+│   ├── java
+│   │   └── com.demo.upimesh
+│   │       ├── controller
+│   │       ├── dto
+│   │       ├── model
+│   │       └── service
+│   └── resources
+└── test
 
-⸻
-
-REST APIs
+API Endpoints
 
 Accounts
 
-Get All Accounts
-
 GET /api/accounts
 
-⸻
+Returns all demo accounts and balances.
 
 Transactions
 
-Get Transaction History
-
 GET /api/transactions
 
-⸻
+Returns recent transaction history.
 
 Direct Transfer
 
-Transfer Money
-
 POST /api/transfer
 
-Request Body
+Request body:
 
 {
 "senderVpa": "alice@demo",
@@ -74,15 +65,11 @@ Request Body
 "amount": 500
 }
 
-⸻
-
-Offline Mesh Payment Flow
-
-Send Payment Packet
+Send Offline Mesh Packet
 
 POST /api/mesh/send
 
-Request Body
+Request body:
 
 {
 "senderVpa": "alice@demo",
@@ -90,112 +77,98 @@ Request Body
 "amount": 300
 }
 
-⸻
-
 Run Gossip Protocol
 
 POST /api/mesh/gossip
 
-⸻
+Moves packets from one virtual device to the next.
 
-Settle Payment
+Settle Mesh Packet
 
 POST /api/mesh/settle
 
-⸻
+Settles the packet available at the bridge device.
 
 View Mesh Devices
 
 GET /api/mesh/devices
 
-⸻
+Shows all virtual devices, online/offline status, and packet inboxes.
 
-View Mesh Summary
+Mesh Summary
 
 GET /api/mesh/summary
 
-⸻
+Returns total devices, online devices, offline devices, packets in mesh, and settled packet count.
 
 Reset Mesh
 
 POST /api/mesh/reset
 
-⸻
+Clears all mesh packets and settled packet IDs.
 
-Device Management
-
-Make Device Offline
+Device Status
 
 POST /api/device/offline/phone-b
 
-Make Device Online
+Marks phone-b as offline.
 
 POST /api/device/online/phone-b
 
-⸻
+Marks phone-b as online.
 
 Demo Flow
 
-1. Reset Mesh
-2. Send Offline Payment Packet
-3. Run Gossip Protocol
-4. Settle Payment
-5. Verify Updated Account Balances
-6. View Transaction History
-7. Attempt Duplicate Settlement
-8. Verify Duplicate Protection
-
-⸻
+1. Reset the mesh.
+2. Send an offline payment packet.
+3. Run the gossip protocol.
+4. Settle the packet from the bridge device.
+5. Verify updated account balances.
+6. View transaction history.
+7. Attempt duplicate settlement.
+8. Confirm duplicate packet rejection.
 
 Sample Output
 
-Before Settlement
+Initial balances:
 
-Alice : 5000
-Bob   : 1000
+Alice: 5000
+Bob:   1000
 
-After Settlement
+After settling a ₹300 mesh payment:
 
-Alice : 4700
-Bob   : 1300
+Alice: 4700
+Bob:   1300
 
-Duplicate Settlement
+Duplicate settlement response:
 
 {
 "status": "FAILED",
 "reason": "Duplicate packet rejected"
 }
 
-⸻
-
 Current Limitations
 
 * Mesh communication is simulated.
-* Uses H2 in-memory database.
-* No real Bluetooth or Wi-Fi Direct communication.
-* No encryption implemented.
-* Linear gossip routing.
-
-⸻
+* H2 is used as an in-memory database.
+* No real Bluetooth or Wi-Fi Direct integration.
+* No encryption is implemented yet.
+* Gossip routing is linear, not graph-based.
 
 Future Improvements
 
-* AES/RSA Encryption
-* QR Code Based Offline Payments
-* Graph-Based Mesh Routing
-* Redis Idempotency
-* MySQL/PostgreSQL Support
-* Docker Deployment
-* Web Dashboard
-* Android Client
-* Real Bluetooth/Wi-Fi Direct Integration
-
-⸻
+* AES/RSA encryption
+* QR-based offline payment packet generation
+* Graph-based mesh routing
+* Redis-based idempotency
+* MySQL/PostgreSQL persistence
+* Docker deployment
+* Web dashboard
+* Android client
+* Real Bluetooth or Wi-Fi Direct integration
 
 Author
 
 Ajay Singh Kaurav
-
 B.Tech Computer Science Engineering
-
 Spring Boot Backend Developer
