@@ -1,4 +1,4 @@
-UPI Offline Mesh Demo
+Offline UPI Mesh Payment Simulator
 
 A Spring Boot backend that simulates offline UPI-style payments using mesh networking.
 The project demonstrates how payment packets can move between nearby devices without internet and later settle when a bridge device reconnects to the server.
